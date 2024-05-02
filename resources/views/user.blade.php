@@ -39,7 +39,8 @@
                     <td id="name{{$item->id}}">{{$item->name}}</td>
                     <td id="email{{$item->id}}">{{$item->email}}</td>
                     <td id="pass{{$item->id}}">{{$item->password}}</td>
-                    <td><a onclick="update({{$item->id}})" class="btn btn-primary">Edit</a><a href="{{route('form',$item->id)}}" class="btn btn-danger">Delete</a></td>
+                    {{-- <td><a onclick="update({{$item->id}})" class="btn btn-primary">Edit</a><a href="{{route('form',$item->id)}}" class="btn btn-danger">Delete</a></td> --}}
+                    <td><a href="{{route('form','edit-'.$item->id)}}" class="btn btn-primary">Edit</a><a href="{{route('form',$item->id)}}" class="btn btn-danger">Delete</a></td>
                   </tr>
                 @endforeach
             </tbody>

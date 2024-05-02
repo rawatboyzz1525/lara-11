@@ -8,35 +8,42 @@ use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
-   
-    public function form(Request $request){
 
-        if ($request->isMethod('get') && $request->id==null) {
-            $data=student::all();
-            return view('user',['data'=>$data]);
+    public function form(Request $request)
+    {
+
+        if ($request->isMethod('get') && $request->id == null) {
+            $data = student::all();
+            return view('user', ['data' => $data]);
         }
 
         //insert
-        if ($request->isMethod('post') && $request->uid==null) {
+        if ($request->isMethod('post') && $request->uid == null) {
             $this->insert($request);
             return back();
         }
 
         //update
         if ($request->isMethod('post')) {
-            $this->update($request); 
-            return back();
+            $this->update($request);
+            return redirect()->route('form');
         }
 
         //delete
-        if ($request->isMethod('get')) {
-            $this->delete($request);
-            return back();
+        if ($request->isMethod('get') && $request->id) {
+            if (is_numeric($request->id)) {
+                $this->delete($request);
+                return back();
+            } else {
+                $data = $this->edit($request);
+                return view('edit', ['data' => $data]);
+            }
         }
-
     }
 
-    public function insert($request){
+
+    public function insert($request)
+    {
         $user = new student();
         $user->name = $request->input('name');
         $user->email = $request->input('email');
@@ -44,7 +51,15 @@ class StudentController extends Controller
         $user->save();
     }
 
-    public function update($request){
+    public function edit($request)
+    {
+        $id = str_replace('edit-', '', $request->id);
+        $data = student::findOrFail($id);
+        return $data;
+    }
+
+    public function update($request)
+    {
         $user = student::findOrFail($request->uid);
         $user->name = $request->input('name');
         $user->email = $request->input('email');
@@ -52,7 +67,8 @@ class StudentController extends Controller
         $user->save();
     }
 
-    public function delete($request){
+    public function delete($request)
+    {
         student::find($request->id)->delete();
     }
 }
