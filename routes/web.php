@@ -9,6 +9,5 @@ Route::get('/', function () {
 });
 
 Route::controller(StudentController::class)->group(function(){
-
     Route::any('form/{id?}','form')->name('form');
 });
