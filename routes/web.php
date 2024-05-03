@@ -10,4 +10,9 @@ Route::get('/', function () {
 
 Route::controller(StudentController::class)->group(function(){
     Route::any('form/{id?}','form')->name('form');
+    
+    //route to test abstract class 
+    Route::get('index','index'); 
+    //route to test abstract class 
+
 });

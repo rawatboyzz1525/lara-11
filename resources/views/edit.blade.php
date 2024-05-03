@@ -3,8 +3,10 @@
 Eidt page
 @endsection
 @section('content')
+<h2>{{$data->name}}(Edit)</h2>
 <form action="{{route('form')}}" method="post">
     @csrf
+    @method('PUT')
     <input type="hidden" name="uid" id="uid" value="{{$data->id}}">
     <div class="form-group">
         <label for="name">Name:</label>
