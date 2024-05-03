@@ -9,6 +9,23 @@ use Illuminate\Http\Request;
 class StudentController extends Controller
 {
 
+    // use of abstract class
+    public function index(){
+        $res=$this->testcase('hello');
+        dd($res);
+    }
+
+    public function testcase($data)
+    {
+        return 'From abstratc => '.$data;
+    }
+
+    //end use of abstract class
+
+    public function blog(){
+        return 'hiii';
+    }
+
     public function form(Request $request)
     {
 
@@ -18,13 +35,13 @@ class StudentController extends Controller
         }
 
         //insert
-        if ($request->isMethod('post') && $request->uid == null) {
+        if ($request->isMethod('post')) {
             $this->insert($request);
             return back();
         }
 
         //update
-        if ($request->isMethod('post')) {
+        if ($request->isMethod('PUT')) {
             $this->update($request);
             return redirect()->route('form');
         }
